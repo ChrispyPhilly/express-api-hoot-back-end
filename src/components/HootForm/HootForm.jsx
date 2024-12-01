@@ -1,25 +1,24 @@
 // src/components/HootForm/HootForm.jsx
+
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import * as hootService from '../../services/hootService';
 
-useEffect(() => {
+
+const HootForm = (props) => {
+  const { hootId } = useParams();
+  const [formData, setFormData] = useState({
+    title: '',
+    text: '',
+    category: 'News',
+  });
+  useEffect(() => {
     const fetchHoot = async () => {
       const hootData = await hootService.show(hootId);
       setFormData(hootData);
     };
     if (hootId) fetchHoot();
   }, [hootId]);
-
-const { hootId } = useParams();
-
-const HootForm = (props) => {
-  const [formData, setFormData] = useState({
-    title: '',
-    text: '',
-    category: 'News',
-  });
-
   const handleChange = (evt) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
   };

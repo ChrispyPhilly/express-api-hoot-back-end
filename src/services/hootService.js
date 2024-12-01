@@ -36,12 +36,13 @@ const index = async () => {
         },
         body: JSON.stringify(hootFormData),
       });
+      if (!res.ok) throw new Error('Failed to create Hoot');
       return res.json();
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      alert(error.message || 'An error occurred while creating the hoot.');
     }
   };
-   
   
 const createComment = async (hootId, commentFormData) => {
     try {
